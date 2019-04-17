@@ -18,9 +18,10 @@
 <script>
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     console.log('Service Worker and Push is supported');
-
+    alert("1")
     navigator.serviceWorker.register('./sw.js')
       .then(function(swReg) {
+        alert("2")
         console.log('Service Worker is registered', swReg);
         const publicKey = 'BE8s9LWAz8IOPPvA1V1ULX21e7f432DQUMxsg-vgHgcmhlMLQWIB8WbVwQYsKbxKEpyEaJRB282iLiP95tZXzxk'
         swReg.pushManager.subscribe({
@@ -28,6 +29,7 @@
           applicationServerKey: urlBase64ToUint8Array(publicKey)
         })
           .then(function(subscription) {
+            alert("3")
             console.log('User is subscribed:', JSON.stringify(subscription));
             document.getElementById("dog").innerText = JSON.stringify(subscription)
           })
