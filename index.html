@@ -34,6 +34,7 @@
             document.getElementById("dog").innerText = JSON.stringify(subscription)
           })
           .catch(function(err) {
+            alert(err)
             console.log('Failed to subscribe the user: ', err);
           });
         //
