@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+<div id="root">
+    <span id="dog"></span>
+</div>
 <script>
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     console.log('Service Worker and Push is supported');
@@ -19,7 +22,7 @@
         })
           .then(function(subscription) {
             console.log('User is subscribed:', JSON.stringify(subscription));
-            document.body.innerHTML = JSON.stringify(subscription)
+            document.getElementById("dog").innerText = JSON.stringify(subscription)
           })
           .catch(function(err) {
             console.log('Failed to subscribe the user: ', err);
