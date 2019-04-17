@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <style>
         .dog{
             color:red;
@@ -23,7 +24,7 @@
       .then(function(swReg) {
         alert("2")
         console.log('Service Worker is registered', swReg);
-        const publicKey = 'BE8s9LWAz8IOPPvA1V1ULX21e7f432DQUMxsg-vgHgcmhlMLQWIB8WbVwQYsKbxKEpyEaJRB282iLiP95tZXzxk'
+        const publicKey = 'BPy15lFSI4Ev03ehaJaLXV90nfJp-P0B78VVgDMe9fgt3PNIPgz0jYfKTuu5L0badYlcKcKJyKLuqAWCsGOaRrE'
         swReg.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: urlBase64ToUint8Array(publicKey)
