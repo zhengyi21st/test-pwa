@@ -18,8 +18,7 @@
 </div>
 <script>
   if ('serviceWorker' in navigator && 'PushManager' in window) {
-    document.getElementById('root').innerHTML = "支持pwa"
-    /*console.log('Service Worker and Push is supported');
+    console.log('Service Worker and Push is supported');
     navigator.serviceWorker.register('./sw.js')
       .then(function(swReg) {
         console.log('Service Worker is registered', swReg);
@@ -41,9 +40,8 @@
       })
       .catch(function(error) {
         console.error('Service Worker Error', error);
-      });*/
+      });
   } else {
-    document.getElementById('root').innerHTML = "不支持pwa"
     console.warn('Push messaging is not supported');
   }
 
