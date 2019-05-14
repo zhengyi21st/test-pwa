@@ -23,7 +23,7 @@
     console.log('Service Worker and Push is supported');
     navigator.serviceWorker.register('./sw.js')
       .then(function(swReg) {
-        document.getElementById('testSpan').innerText = "serviceWorker register成功"
+        document.getElementById('test1').innerText = "serviceWorker register成功"
         console.log('Service Worker is registered', swReg);
         const publicKey = 'BPy15lFSI4Ev03ehaJaLXV90nfJp-P0B78VVgDMe9fgt3PNIPgz0jYfKTuu5L0badYlcKcKJyKLuqAWCsGOaRrE'
         swReg.pushManager.subscribe({
@@ -32,22 +32,22 @@
         })
           .then(function(subscription) {
             console.log('User is subscribed:', JSON.stringify(subscription));
-            document.getElementById("testSpan").innerText = JSON.stringify(subscription)
+            document.getElementById("test1").innerText = JSON.stringify(subscription)
           })
           .catch(function(err) {
-            document.getElementById('testSpan').innerText = "pushManager register失败"
+            document.getElementById('test1').innerText = "pushManager register失败"
             document.getElementById('test2').innerText = JSON.stringify(err)
             console.log('Failed to subscribe the user: ', err);
           });
         //
       })
       .catch(function(error) {
-        document.getElementById('testSpan').innerText = "serviceWorker register失败"
+        document.getElementById('test1').innerText = "serviceWorker register失败"
         document.getElementById('test2').innerText = JSON.stringify(error)
         console.error('Service Worker Error', error);
       });
   } else {
-    document.getElementById('testSpan').innerText = "window下没有serviceWorker"
+    document.getElementById('test1').innerText = "window下没有serviceWorker"
     console.warn('Push messaging is not supported');
   }
 
