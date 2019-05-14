@@ -19,50 +19,52 @@
     <span id="test2" ></span>
 </div>
 <script>
-  if ('serviceWorker' in navigator && 'PushManager' in window) {
-    console.log('Service Worker and Push is supported');
-    navigator.serviceWorker.register('./sw.js')
-      .then(function(swReg) {
-        document.getElementById('test1').innerHTML = "serviceWorker register成功"
-        console.log('Service Worker is registered', swReg);
-        const publicKey = 'BPy15lFSI4Ev03ehaJaLXV90nfJp-P0B78VVgDMe9fgt3PNIPgz0jYfKTuu5L0badYlcKcKJyKLuqAWCsGOaRrE'
-        swReg.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(publicKey)
-        })
-          .then(function(subscription) {
-            console.log('User is subscribed:', JSON.stringify(subscription));
-            document.getElementById("test1").innerHTML = JSON.stringify(subscription)
+  window.addEventListener('load', function() {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      console.log('Service Worker and Push is supported');
+      navigator.serviceWorker.register('./sw.js')
+        .then(function(swReg) {
+          document.getElementById('test1').innerHTML = "serviceWorker register成功"
+          console.log('Service Worker is registered', swReg);
+          const publicKey = 'BPy15lFSI4Ev03ehaJaLXV90nfJp-P0B78VVgDMe9fgt3PNIPgz0jYfKTuu5L0badYlcKcKJyKLuqAWCsGOaRrE'
+          swReg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(publicKey)
           })
-          .catch(function(err) {
-            document.getElementById('test1').innerHTML = "pushManager register失败"
-            document.getElementById('test2').innerHTML = JSON.stringify(err)
-            console.log('Failed to subscribe the user: ', err);
-          });
-        //
-      })
-      .catch(function(error) {
-        document.getElementById('test1').innerHTML = "serviceWorker register失败"
-        document.getElementById('test2').innerHTML = JSON.stringify(error)
-        console.error('Service Worker Error', error);
-      });
-  } else {
-    document.getElementById('test1').innerHTML = "window下没有serviceWorker"
-    console.warn('Push messaging is not supported');
-  }
-
-  function urlBase64ToUint8Array (base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
+            .then(function(subscription) {
+              console.log('User is subscribed:', JSON.stringify(subscription));
+              document.getElementById("test1").innerHTML = JSON.stringify(subscription)
+            })
+            .catch(function(err) {
+              document.getElementById('test1').innerHTML = "pushManager register失败"
+              document.getElementById('test2').innerHTML = JSON.stringify(err)
+              console.log('Failed to subscribe the user: ', err);
+            });
+          //
+        })
+        .catch(function(error) {
+          document.getElementById('test1').innerHTML = "serviceWorker register失败"
+          document.getElementById('test2').innerHTML = JSON.stringify(error)
+          console.error('Service Worker Error', error);
+        });
+    } else {
+      document.getElementById('test1').innerHTML = "window下没有serviceWorker"
+      console.warn('Push messaging is not supported');
     }
-    return outputArray;
-  }
+
+    function urlBase64ToUint8Array (base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+  })
 </script>
 </body>
 </html>
