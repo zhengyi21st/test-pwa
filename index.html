@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="manifest" href="./manifest.json" />
     <style>
-        .test-span{
+        .test1{
             color:red;
             background: yellow;
         }
@@ -13,8 +13,10 @@
 </head>
 <body>
 <div id="root">
-    <p>测试</p>
-    <span id="testSpan" class="test-span"></span>
+    <p>支持</p>
+    <span id="test1" class="test1"></span>
+    <p>错误提示</p>
+    <span id="test2" ></span>
 </div>
 <script>
   if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -34,12 +36,14 @@
           })
           .catch(function(err) {
             document.getElementById('testSpan').innerText = "pushManager register失败"
+            document.getElementById('test2').innerText = JSON.stringify(err)
             console.log('Failed to subscribe the user: ', err);
           });
         //
       })
       .catch(function(error) {
         document.getElementById('testSpan').innerText = "serviceWorker register失败"
+        document.getElementById('test2').innerText = JSON.stringify(error)
         console.error('Service Worker Error', error);
       });
   } else {
