@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="manifest" href="./manifest.json" />
     <style>
-        .dog{
+        .test-span{
             color:red;
             background: yellow;
         }
@@ -14,13 +14,14 @@
 <body>
 <div id="root">
     <p>测试</p>
-    <span id="dog" class="dog"></span>
+    <span id="testSpan" class="test-span"></span>
 </div>
 <script>
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     console.log('Service Worker and Push is supported');
     navigator.serviceWorker.register('./sw.js')
       .then(function(swReg) {
+        document.getElementById('testSpan').innerText = "serviceWorker register成功"
         console.log('Service Worker is registered', swReg);
         const publicKey = 'BPy15lFSI4Ev03ehaJaLXV90nfJp-P0B78VVgDMe9fgt3PNIPgz0jYfKTuu5L0badYlcKcKJyKLuqAWCsGOaRrE'
         swReg.pushManager.subscribe({
@@ -28,20 +29,21 @@
           applicationServerKey: urlBase64ToUint8Array(publicKey)
         })
           .then(function(subscription) {
-            alert("3")
             console.log('User is subscribed:', JSON.stringify(subscription));
-            document.getElementById("dog").innerText = JSON.stringify(subscription)
+            document.getElementById("testSpan").innerText = JSON.stringify(subscription)
           })
           .catch(function(err) {
-            alert(err)
+            document.getElementById('testSpan').innerText = "pushManager register失败"
             console.log('Failed to subscribe the user: ', err);
           });
         //
       })
       .catch(function(error) {
+        document.getElementById('testSpan').innerText = "serviceWorker register失败"
         console.error('Service Worker Error', error);
       });
   } else {
+    document.getElementById('testSpan').innerText = "window下没有serviceWorker"
     console.warn('Push messaging is not supported');
   }
 
