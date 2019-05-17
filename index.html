@@ -17,9 +17,18 @@
     <span id="test1" class="test1"></span>
     <p>错误提示</p>
     <span id="test2" ></span>
+    <p>WebWorker</p>
+    <span id="test3" ></span>
 </div>
 <script>
   window.addEventListener('load', function() {
+    if(Worker){
+      var myWorker = new Worker('./worker.js');
+      myWorker.onmessage = function(e) {
+        console.log(e.data);
+        document.getElementById('test3').innerHTML = `接收到worker消息：${e.data}`
+      }
+    }
     if ('serviceWorker' in navigator && 'PushManager' in window) {
       console.log('Service Worker and Push is supported');
       navigator.serviceWorker.register('./sw.js')
